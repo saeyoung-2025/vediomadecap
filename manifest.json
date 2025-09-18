@@ -1,0 +1,22 @@
+{
+    "name": "여행사진 동영상 메이커",
+    "short_name": "여행 영상",
+    "description": "여행의 추억을 동영상으로 만드세요!",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#9966cc",
+    "theme_color": "#9966cc",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
