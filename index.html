@@ -6,8 +6,8 @@
     
     <link rel="manifest" href="manifest.json">
     
-    <title>🧳✈️ 여행사진 동영상 메이커</title>
-    <meta name="description" content="여행 사진과 음악으로 멋진 동영상을 만들어보세요!">
+    <title>📸🎬 Photo-to-Video Maker</title>
+    <meta name="description" content="사진과 음악으로 멋진 동영상을 만들어보세요!">
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
 
         body {
             font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
-            background: linear-gradient(135deg, #9966cc 0%, #b388ff 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -27,7 +27,10 @@
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             padding: 30px;
         }
 
@@ -39,10 +42,11 @@
         h1 {
             font-size: 2.8em;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #9966cc, #b388ff);
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-weight: 700;
         }
 
         .subtitle {
@@ -59,17 +63,46 @@
         }
 
         .feature-card {
-            background: #f8f9fa;
+            background: linear-gradient(145deg, #ffffff, #f8faff);
             padding: 20px;
             border-radius: 15px;
             text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 8px 25px rgba(102, 126, 234, 0.15),
+                0 4px 10px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
         }
 
         .feature-card:hover {
-            border-color: #9966cc;
-            transform: translateY(-5px);
+            border-color: #667eea;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.25),
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .feature-card:active {
+            transform: translateY(-4px) scale(0.98);
         }
 
         .feature-icon {
@@ -80,53 +113,135 @@
         .upload-section {
             margin-bottom: 25px;
             padding: 25px;
-            border: 3px dashed #9966cc;
+            border: 3px dashed #667eea;
             border-radius: 15px;
             text-align: center;
-            background: rgba(153, 102, 204, 0.05);
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(102, 126, 234, 0.05), rgba(255, 255, 255, 0.9));
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 8px 25px rgba(102, 126, 234, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent);
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .upload-section:hover::before {
+            width: 200%;
+            height: 200%;
         }
 
         .upload-section:hover {
-            border-color: #7a52a3;
-            background: rgba(153, 102, 204, 0.1);
+            border-color: #5a67d8;
+            background: linear-gradient(145deg, rgba(102, 126, 234, 0.1), rgba(255, 255, 255, 0.95));
+            transform: translateY(-4px);
+            box-shadow: 
+                0 16px 40px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .upload-section.audio {
-            border-color: #28a745;
-            background: rgba(40, 167, 69, 0.05);
+            border-color: #38a169;
+            background: linear-gradient(145deg, rgba(56, 161, 105, 0.05), rgba(255, 255, 255, 0.9));
+        }
+
+        .upload-section.audio::before {
+            background: radial-gradient(circle, rgba(56, 161, 105, 0.1), transparent);
         }
 
         .upload-section.audio:hover {
-            border-color: #1e7e34;
-            background: rgba(40, 167, 69, 0.1);
+            border-color: #2f855a;
+            background: linear-gradient(145deg, rgba(56, 161, 105, 0.1), rgba(255, 255, 255, 0.95));
         }
 
         .upload-btn {
-            background: linear-gradient(135deg, #9966cc, #7a52a3);
+            background: linear-gradient(145deg, #667eea, #764ba2);
             color: white;
-            padding: 15px 30px;
+            padding: 16px 32px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(153, 102, 204, 0.3);
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 8px 20px rgba(102, 126, 234, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .upload-btn:hover::before {
+            left: 100%;
         }
 
         .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(153, 102, 204, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 12px 30px rgba(102, 126, 234, 0.4),
+                0 6px 12px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-btn:active {
+            transform: translateY(-1px) scale(0.95);
+            box-shadow: 
+                0 4px 12px rgba(102, 126, 234, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .upload-btn.audio {
-            background: linear-gradient(135deg, #28a745, #1e7e34);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            background: linear-gradient(145deg, #ffc107, #ffb300);
+            box-shadow: 
+                0 8px 20px rgba(255, 193, 7, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .upload-btn.audio:hover {
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+            box-shadow: 
+                0 12px 30px rgba(255, 193, 7, 0.4),
+                0 6px 12px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-btn.audio:active {
+            box-shadow: 
+                0 4px 12px rgba(255, 193, 7, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .music-links {
@@ -159,32 +274,35 @@
             color: #333;
             text-decoration: none;
             border-radius: 25px;
-            border: 2px solid #9966cc;
+            border: 2px solid #667eea;
             transition: all 0.3s ease;
             font-weight: bold;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
 
         .music-link:hover {
-            background: #9966cc;
+            background: #667eea;
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .music-link.green {
-            border-color: #28a745;
+            border-color: #38a169;
         }
 
         .music-link.green:hover {
-            background: #28a745;
+            background: #38a169;
         }
 
         .audio-info {
             margin-top: 20px;
             padding: 15px;
-            background: #e7f3ff;
+            background: linear-gradient(135deg, #e7f3ff, #dbeafe);
             border-radius: 10px;
-            border-left: 5px solid #9966cc;
+            border-left: 5px solid #667eea;
             display: none;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
         }
 
         .controls {
@@ -192,10 +310,15 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-bottom: 35px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            border: 2px solid #e9ecef;
+            padding: 30px;
+            background: linear-gradient(145deg, #f8faff, #ffffff);
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            box-shadow: 
+                0 12px 35px rgba(102, 126, 234, 0.1),
+                0 4px 10px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                inset 0 -1px 0 rgba(102, 126, 234, 0.05);
         }
 
         .control-group {
@@ -206,14 +329,47 @@
 
         .control-group label {
             font-weight: bold;
-            color: #333;
+            color: white;
             font-size: 15px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 8px;
+            position: relative;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-group:nth-child(1) label {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+        }
+
+        .control-group:nth-child(2) label {
+            background: linear-gradient(135deg, #673ab7, #512da8);
+        }
+
+        .control-group:nth-child(3) label {
+            background: linear-gradient(135deg, #3f51b5, #303f9f);
+        }
+
+        .control-group:nth-child(4) label {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .control-group:nth-child(5) label {
+            background: linear-gradient(135deg, #8e24aa, #6a1b9a);
+        }
+
+        .control-group:nth-child(6) label {
+            background: linear-gradient(135deg, #5e35b1, #4527a0);
         }
 
         .control-group input,
         .control-group select {
             padding: 12px;
-            border: 2px solid #ddd;
+            border: 2px solid rgba(102, 126, 234, 0.2);
             border-radius: 8px;
             font-size: 14px;
             transition: border-color 0.3s ease;
@@ -222,9 +378,9 @@
 
         .control-group input:focus,
         .control-group select:focus {
-            border-color: #9966cc;
+            border-color: #667eea;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(153, 102, 204, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .photos-grid {
@@ -236,16 +392,28 @@
 
         .photo-item {
             position: relative;
-            border: 2px solid #ddd;
-            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             background: white;
+            box-shadow: 
+                0 6px 20px rgba(102, 126, 234, 0.1),
+                0 2px 6px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .photo-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.2),
+                0 8px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border-color: #667eea;
+        }
+
+        .photo-item:active {
+            transform: translateY(-4px) scale(1.02);
         }
 
         .photo-item img {
@@ -258,7 +426,7 @@
             position: absolute;
             top: 8px;
             right: 8px;
-            background: #dc3545;
+            background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
             border: none;
             border-radius: 50%;
@@ -268,19 +436,22 @@
             font-size: 14px;
             font-weight: bold;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
         }
 
         .photo-item .remove-btn:hover {
-            background: #c82333;
+            background: linear-gradient(135deg, #c82333, #a71e2a);
             transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
         }
 
         .photo-info {
             padding: 10px;
-            background: rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
             color: white;
             font-size: 11px;
             text-align: center;
+            font-weight: 600;
         }
 
         .canvas-container {
@@ -289,10 +460,10 @@
         }
 
         canvas {
-            border: 3px solid #9966cc;
+            border: 3px solid #667eea;
             border-radius: 12px;
             max-width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
             display: none;
         }
 
@@ -307,15 +478,17 @@
         }
 
         .status.success {
-            background: #d4edda;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
             color: #155724;
-            border: 2px solid #c3e6cb;
+            border: 2px solid #b8daff;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
         }
 
         .status.processing {
-            background: #cce7ff;
+            background: linear-gradient(135deg, #cce7ff, #b8daff);
             color: #004085;
             border: 2px solid #99d6ff;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
         }
 
         .buttons {
@@ -327,37 +500,82 @@
         }
 
         .btn {
-            padding: 15px 30px;
+            padding: 16px 32px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             min-width: 150px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #9966cc, #7a52a3);
+            background: linear-gradient(145deg, #667eea, #764ba2);
             color: white;
-            box-shadow: 0 5px 15px rgba(153, 102, 204, 0.3);
+            box-shadow: 
+                0 8px 20px rgba(102, 126, 234, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(145deg, #38a169, #2f855a);
             color: white;
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            box-shadow: 
+                0 8px 20px rgba(56, 161, 105, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #dc3545, #c82333);
+            background: linear-gradient(145deg, #dc3545, #c82333);
             color: white;
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+            box-shadow: 
+                0 8px 20px rgba(220, 53, 69, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 
+                0 16px 40px rgba(0, 0, 0, 0.2),
+                0 8px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:active {
+            transform: translateY(-2px) scale(0.95);
+            box-shadow: 
+                0 6px 16px rgba(0, 0, 0, 0.2),
+                0 2px 6px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .btn:disabled {
@@ -374,9 +592,18 @@
             text-align: center;
             margin-top: 40px;
             padding: 25px;
-            background: #f8f9fa;
+            background: linear-gradient(145deg, #f8faff, #ffffff);
             border-radius: 15px;
             color: #666;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.05);
+        }
+
+        .footer h3 {
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         @media (max-width: 768px) {
@@ -407,8 +634,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🧳✈️ 여행사진 동영상 메이커</h1>
-            <p class="subtitle">여행의 추억을 멋진 동영상으로 만들어보세요!</p>
+            <h1>📸🎬 Photo-to-Video Maker</h1>
+            <p class="subtitle">사진과 음악으로 멋진 동영상을 만들어보세요!</p>
         </div>
 
         <div class="features">
@@ -437,7 +664,7 @@
         <div class="upload-section">
             <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
             <button class="upload-btn" onclick="selectPhotos()">
-                🧳 여행사진 선택하기
+                📸 여행사진 선택하기
             </button>
             <p style="margin-top: 15px; color: #666; font-size: 16px;">
                 여행 사진들을 선택하세요 (최대 50장)
@@ -472,7 +699,7 @@
                 <p style="margin: 0 0 10px 0; color: #0066cc; font-weight: bold;">
                     🎵 선택된 음악: <span id="audioName"></span>
                 </p>
-                <button onclick="removeAudio()" style="padding: 8px 15px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                <button onclick="removeAudio()" style="padding: 8px 15px; background: linear-gradient(135deg, #dc3545, #c82333); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
                     🗑️ 음악 제거
                 </button>
             </div>
@@ -549,9 +776,9 @@
         </div>
 
         <div class="footer">
-            <h3>🧳✈️ 여행사진 동영상 메이커</h3>
+            <h3>📸🎬 Photo-to-Video Maker</h3>
             <p>오픈소스 프로젝트 | 무료 사용 | MIT 라이선스</p>
-            <p style="margin-top: 10px;">여행의 추억을 특별한 동영상으로 만들어보세요!</p>
+            <p style="margin-top: 10px;">사진을 특별한 동영상으로 만들어보세요!</p>
             <p style="text-align: center; margin-top: 30px; color: #888;">
                 ℹ️ 이 앱은 사진을 30장 내외로 사용해 주세요. 온/오프라인 모두 가능합니다.
             </p>
@@ -579,7 +806,7 @@
         const volumeDisplay = document.getElementById('volumeDisplay');
 
         // === 초기화 ===
-        console.log('🧳✈️ 여행사진 동영상 메이커 초기화 완료');
+        console.log('📸🎬 Photo-to-Video Maker 초기화 완료');
 
         // === 이벤트 리스너 ===
         
@@ -787,7 +1014,6 @@
             }
         }
         
-        // (기존 프레임 함수들 - 수정 없음)
         function drawPolaroidFrame(x, y, width, height, title) {
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(x - 15, y - 15, width + 30, height + 30 + 50);
@@ -799,17 +1025,15 @@
             }
         }
 
-        // --- 새로운 효과 함수들 ---
         function drawLightLeakEffect() {
             const time = frameCounter / 30;
             const opacity = 0.4;
             
             ctx.globalAlpha = opacity;
             
-            // 왼쪽 상단에서 오는 빛
             const gradient1 = ctx.createRadialGradient(
-                -200, -200, 100, // 시작 원
-                -200, -200, 800  // 끝 원
+                -200, -200, 100,
+                -200, -200, 800
             );
             gradient1.addColorStop(0, 'rgba(255, 200, 100, 1)');
             gradient1.addColorStop(0.5, 'rgba(255, 100, 0, 0.5)');
@@ -818,7 +1042,6 @@
             ctx.fillStyle = gradient1;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // 오른쪽 하단에서 오는 빛
             const gradient2 = ctx.createRadialGradient(
                 canvas.width + 200, canvas.height + 200, 100,
                 canvas.width + 200, canvas.height + 200, 800
@@ -836,8 +1059,7 @@
         function drawFilmGrainEffect() {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
-            const grainDensity = 0.1; // 노이즈 밀도
-            const noiseFactor = 0.1; // 노이즈 강도
+            const noiseFactor = 0.1;
 
             for (let i = 0; i < data.length; i += 4) {
                 const noise = (Math.random() * 2 - 1) * 255 * noiseFactor;
@@ -851,7 +1073,6 @@
         function drawVHSGlitchEffect() {
             const frame = frameCounter % 30;
             
-            // 1. 색상 번짐
             if (frame % 5 < 2) {
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imageData.data;
@@ -863,16 +1084,12 @@
                 ctx.putImageData(imageData, 0, 0);
             }
             
-            // 2. 가로 줄 노이즈
             ctx.globalAlpha = 0.2;
             ctx.fillStyle = `rgba(0, 0, 0, 0.8)`;
             ctx.fillRect(0, Math.random() * canvas.height, canvas.width, Math.random() * 5);
             ctx.globalAlpha = 1.0;
         }
 
-
-        // === 동영상 생성 및 다운로드 ===
-        
         async function createVideo() {
             if (photos.length === 0 || isCreating) return;
 
@@ -885,7 +1102,6 @@
             showStatus('🎬 동영상 생성 중...', 'processing');
 
             const frameRate = 30;
-            
             const stream = canvas.captureStream(frameRate);
             const recorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
             
@@ -952,7 +1168,6 @@
                 const animate = () => {
                     const progress = frame / totalFrames;
                     
-                    // 배경 초기화
                     ctx.fillStyle = '#000000';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -987,25 +1202,21 @@
                         const zoomY = (canvas.height / 2) - (canvas.height * zoomFactor / 2);
 
                         if (transitionEffect === 'zoom-in') {
-                             // Zoom out previous image
                             ctx.globalAlpha = 1 - progress;
                             const prevZoomFactor = 1 + ((1 - progress) * 0.5);
                             const prevZoomX = (canvas.width / 2) - (canvas.width * prevZoomFactor / 2);
                             const prevZoomY = (canvas.height / 2) - (canvas.height * prevZoomFactor / 2);
                             ctx.drawImage(prevPhoto.img, prevZoomX, prevZoomY, canvas.width * prevZoomFactor, canvas.height * prevZoomFactor);
 
-                            // Zoom in current image
                             ctx.globalAlpha = progress;
                             ctx.drawImage(currentPhoto.img, zoomX, zoomY, canvas.width * zoomFactor, canvas.height * zoomFactor);
                         } else if (transitionEffect === 'zoom-out') {
-                            // Zoom in previous image
                             ctx.globalAlpha = 1 - progress;
                             const prevZoomFactor = 1 + (progress * 0.5);
                             const prevZoomX = (canvas.width / 2) - (canvas.width * prevZoomFactor / 2);
                             const prevZoomY = (canvas.height / 2) - (canvas.height * prevZoomFactor / 2);
                             ctx.drawImage(prevPhoto.img, prevZoomX, prevZoomY, canvas.width * prevZoomFactor, canvas.height * prevZoomFactor);
 
-                            // Zoom out current image
                             ctx.globalAlpha = progress;
                             const currentZoomFactor = 1 + ((1 - progress) * 0.5);
                             const currentZoomX = (canvas.width / 2) - (canvas.width * currentZoomFactor / 2);
@@ -1033,7 +1244,7 @@
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = url;
-                const travelTitle = document.getElementById('travelTitle').value.trim() || '여행-동영상';
+                const travelTitle = document.getElementById('travelTitle').value.trim() || 'photo-video';
                 a.download = `${travelTitle}.webm`;
                 document.body.appendChild(a);
                 a.click();
@@ -1043,6 +1254,4 @@
         }
     </script>
 </body>
-
 </html>
-
