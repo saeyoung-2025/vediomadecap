@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="manifest" href="manifest.json">
-    
     <title>📸🎬 Photo-to-Video Maker</title>
     <meta name="description" content="사진과 음악으로 멋진 동영상을 만들어보세요!">
     <style>
@@ -37,6 +35,29 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
+        }
+
+        .help-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(145deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            z-index: 1000;
+        }
+
+        .help-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
         }
 
         h1 {
@@ -86,6 +107,7 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, #667eea, transparent);
             transition: left 0.6s ease;
+            pointer-events: none;
         }
 
         .feature-card:hover::before {
@@ -136,6 +158,7 @@
             transition: all 0.6s ease;
             transform: translate(-50%, -50%);
             border-radius: 50%;
+            pointer-events: none;
         }
 
         .upload-section:hover::before {
@@ -150,20 +173,6 @@
             box-shadow: 
                 0 16px 40px rgba(102, 126, 234, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        .upload-section.audio {
-            border-color: #38a169;
-            background: linear-gradient(145deg, rgba(56, 161, 105, 0.05), rgba(255, 255, 255, 0.9));
-        }
-
-        .upload-section.audio::before {
-            background: radial-gradient(circle, rgba(56, 161, 105, 0.1), transparent);
-        }
-
-        .upload-section.audio:hover {
-            border-color: #2f855a;
-            background: linear-gradient(145deg, rgba(56, 161, 105, 0.1), rgba(255, 255, 255, 0.95));
         }
 
         .upload-btn {
@@ -186,6 +195,7 @@
             gap: 8px;
             position: relative;
             overflow: hidden;
+            z-index: 10;
         }
 
         .upload-btn::before {
@@ -197,6 +207,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.6s;
+            pointer-events: none;
         }
 
         .upload-btn:hover::before {
@@ -250,6 +261,8 @@
             background: linear-gradient(135deg, #fff3cd, #ffeaa7);
             border-radius: 12px;
             border: 2px solid #ffc107;
+            position: relative;
+            z-index: 5;
         }
 
         .music-links h4 {
@@ -278,6 +291,14 @@
             transition: all 0.3s ease;
             font-weight: bold;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            position: relative;
+            z-index: 20;
+            pointer-events: auto;
+        }
+
+        .music-link::before,
+        .music-link::after {
+            pointer-events: none;
         }
 
         .music-link:hover {
@@ -285,6 +306,8 @@
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            text-decoration: none;
+            z-index: 25;
         }
 
         .music-link.green {
@@ -362,8 +385,8 @@
             background: linear-gradient(135deg, #8e24aa, #6a1b9a);
         }
 
-        .control-group:nth-child(6) label {
-            background: linear-gradient(135deg, #5e35b1, #4527a0);
+        .control-group:nth-child(7) label {
+            background: linear-gradient(135deg, #4a148c, #6a1b9a);
         }
 
         .control-group input,
@@ -525,6 +548,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.6s;
+            pointer-events: none;
         }
 
         .btn:hover::before {
@@ -606,6 +630,80 @@
             background-clip: text;
         }
 
+        .help-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .help-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .help-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8faff, #ffffff);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .help-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .help-section h4 {
+            color: #764ba2;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .help-section p, .help-section li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .help-section ul {
+            padding-left: 20px;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -628,12 +726,39 @@
                 width: 100%;
                 max-width: 300px;
             }
+
+            .help-content {
+                margin: 10% auto;
+                padding: 20px;
+                width: 95%;
+            }
+
+            /* 모바일에서 숫자 입력 필드 스핀 버튼 숨기기 */
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+        }
+
+        /* 데스크톱에서 숫자 입력 필드 스핀 버튼 표시 */
+        @media (min-width: 769px) {
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: auto;
+                margin: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <button class="help-btn" onclick="openHelp()" title="도움말">❓</button>
             <h1>📸🎬 Photo-to-Video Maker</h1>
             <p class="subtitle">사진과 음악으로 멋진 동영상을 만들어보세요!</p>
         </div>
@@ -652,7 +777,7 @@
             <div class="feature-card">
                 <div class="feature-icon">🎵</div>
                 <h3>배경음악</h3>
-                <p>여행 테마 음악</p>
+                <p>음악 포함 비디오 생성</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">💾</div>
@@ -683,15 +808,13 @@
             <div class="music-links">
                 <h4>🎼 여행 테마 무료 음악 다운로드</h4>
                 <div class="music-link-container">
-                <div class="music-link-container">
-    <a href="https://freemusicarchive.org/search?adv=1&music-filter-genre=Travel" target="_blank" class="music-link" rel="noopener noreferrer">
-        🌍 여행 음악 모음
-    </a>
-    <a href="https://pixabay.com/music/search/travel/" target="_blank" class="music-link green" rel="noopener noreferrer">
-        ✈️ 어드벤처 음악
-    </a>
-</div>
-
+                    <a href="https://freemusicarchive.org/search?adv=1&music-filter-genre=Travel" target="_blank" class="music-link" rel="noopener">
+                        🌍 여행 음악 모음
+                    </a>
+                    <a href="https://pixabay.com/music/search/travel/" target="_blank" class="music-link green" rel="noopener">
+                        ✈️ 어드벤처 음악
+                    </a>
+                </div>
                 <p style="text-align: center; margin-top: 15px; color: #856404; font-size: 14px;">
                     저작권 무료 여행 테마 음악을 다운받으세요!
                 </p>
@@ -757,7 +880,7 @@
             </div>
         </div>
 
-        <div id="photosGrid" class="photos-grid"></div>
+        <div id="photosGrid" class="photos-grid" style="display: none;"></div>
 
         <div class="canvas-container">
             <canvas id="canvas" width="800" height="600"></canvas>
@@ -777,13 +900,85 @@
             </button>
         </div>
 
-        <div class="footer">
+                    <div class="footer">
             <h3>📸🎬 Photo-to-Video Maker</h3>
             <p>오픈소스 프로젝트 | 무료 사용 | MIT 라이선스</p>
             <p style="margin-top: 10px;">사진을 특별한 동영상으로 만들어보세요!</p>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #667eea; text-align: left;">
+                <h4 style="color: #667eea; margin-bottom: 15px; text-align: left;">💡 출력 포맷 안내 및 MP4 변환 대안</h4>
+                <p style="margin-bottom: 15px; text-align: left;">본 동영상 메이커는 웹 환경의 <strong>최적화 및 안정성</strong>을 위해 <strong>WebM (.webm)</strong> 형식으로 동영상을 저장합니다. WebM 파일은 YouTube, Facebook 등 주요 플랫폼에 바로 업로드 가능합니다.</p>
+                
+                <p style="font-weight: bold; color: #dc3545; margin-top: 15px; text-align: left;">MP4 형식이 꼭 필요하신가요? (무료 사용 옵션 포함)</p>
+                <ul style="margin-left: 20px; margin-top: 10px; text-align: left;">
+                    <li>🔧 <strong>무료 변환 프로그램 추천:</strong> 다음 두 프로그램은 안전하고 <strong>완전 무료</strong>입니다.</li>
+                    <li style="margin-top: 8px;">➡️ <a href="https://handbrake.fr" target="_blank" rel="noopener" style="color: #007bff; text-decoration: none; font-weight: 600;">HandBrake</a> (사용하기 쉬움, 비디오 변환 전용)</li>
+                    <li style="margin-top: 5px;">➡️ <a href="https://videolan.org" target="_blank" rel="noopener" style="color: #007bff; text-decoration: none; font-weight: 600;">VLC Player</a> (다기능 미디어 플레이어)</li>
+                    <li style="margin-top: 10px;">⚠️ <strong>주의사항:</strong> 온라인 변환 서비스는 보안 위험이 있을 수 있습니다. 위 프로그램들은 컴퓨터에 설치하여 안전하게 사용할 수 있습니다.</li>
+                </ul>
+                
+                <h4 style="color: #667eea; margin: 20px 0 10px 0; text-align: left;">🛠️ 기술 정보 및 작동 원리</h4>
+                <ul style="margin-left: 20px; text-align: left;">
+                    <li><strong>작동 방식:</strong> 이 프로그램은 서버 없이 사용자님의 <strong>웹 브라우저(폰/PC)</strong>에서 모든 사진 처리 및 동영상 인코딩을 <strong>실시간으로</strong> 수행합니다.</li>
+                    <li style="margin-top: 8px;"><strong>성능:</strong> 기기의 CPU 성능에 따라 동영상 생성 속도가 달라질 수 있습니다. 고해상도 사진이나 긴 영상을 만들 때 다소 시간이 걸릴 수 있습니다.</li>
+                    <li style="margin-top: 8px;"><strong>오디오 믹싱:</strong> 배경 음악은 브라우저의 Web Audio API를 사용하여 비디오 스트림과 <strong>매우 정밀하게</strong> 합쳐집니다.</li>
+                    <li style="margin-top: 8px;"><strong>저장 위치:</strong> 생성된 <code>.webm</code> 파일은 기기의 <strong>다운로드 폴더</strong>에 저장됩니다.</li>
+                </ul>
+            </div>
+            
             <p style="text-align: center; margin-top: 30px; color: #888;">
                 ℹ️ 이 앱은 사진을 30장 내외로 사용해 주세요. 온/오프라인 모두 가능합니다.
             </p>
+        </div>
+    </div>
+
+            <!-- 도움말 모달 -->
+    <div id="helpModal" class="help-modal">
+        <div class="help-content">
+            <span class="close" onclick="closeHelp()">&times;</span>
+            <h2 style="color: #667eea; margin-bottom: 30px;">📚 Photo-to-Video Maker 도움말</h2>
+            
+            <div class="help-section">
+                <h3>🎵 음악이 들리지 않을 때</h3>
+                <ul>
+                    <li>주소창 왼쪽 자물쇠 아이콘 클릭 → "사이트 설정" → "소리" 허용</li>
+                    <li>Chrome: 설정 → 개인정보 및 보안 → 사이트 설정 → 소리 허용</li>
+                    <li>페이지 새로고침 후 다시 시도</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>🎬 MP4 변환 방법</h3>
+                <h4>HandBrake (추천, 사용하기 쉬움):</h4>
+                <ul>
+                    <li><a href="https://handbrake.fr" target="_blank" rel="noopener">handbrake.fr</a>에서 다운로드</li>
+                    <li>HandBrake 실행 → "Open Source"로 WebM 파일 선택</li>
+                    <li>"Browse"로 저장 위치 설정 → "Start Encode"</li>
+                </ul>
+                <h4>VLC Media Player:</h4>
+                <ul>
+                    <li><a href="https://videolan.org" target="_blank" rel="noopener">videolan.org</a>에서 다운로드</li>
+                    <li>미디어 → 변환/저장 → 파일 추가 → MP4로 변환</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>📱 모바일 사용법</h3>
+                <ul>
+                    <li>숫자 입력시 자동으로 키패드 표시</li>
+                    <li>사진은 최대 30장 권장 (성능 고려)</li>
+                    <li>충전 중 사용 권장</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3>🔧 문제 해결</h3>
+                <ul>
+                    <li>동영상 생성 실패시: 사진 수 줄이기, 음악 제거 후 재시도</li>
+                    <li>지원 파일: 사진(JPG, PNG), 음악(MP3, WAV)</li>
+                    <li>다른 브라우저에서 테스트해보기</li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -809,6 +1004,23 @@
 
         // === 초기화 ===
         console.log('📸🎬 Photo-to-Video Maker 초기화 완료');
+
+        // === 도움말 모달 ===
+        function openHelp() {
+            document.getElementById('helpModal').style.display = 'block';
+        }
+
+        function closeHelp() {
+            document.getElementById('helpModal').style.display = 'none';
+        }
+
+        // 모달 외부 클릭시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('helpModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
 
         // === 이벤트 리스너 ===
         
@@ -917,12 +1129,13 @@
         }
 
         function displayPhotos() {
-            photosGrid.innerHTML = '';
-            
             if (photos.length === 0) {
-                photosGrid.innerHTML = '<p style="text-align: center; color: #666; padding: 40px; font-size: 18px;">📸 사진을 선택해주세요</p>';
+                photosGrid.style.display = 'none';
                 return;
             }
+            
+            photosGrid.innerHTML = '';
+            photosGrid.style.display = 'grid';
             
             photos.forEach((photo, index) => {
                 const div = document.createElement('div');
@@ -957,6 +1170,7 @@
             fileInput.value = '';
             removeAudio();
             frameCounter = 0;
+            displayPhotos();
             console.log('모든 데이터 지워짐');
         }
 
@@ -1092,70 +1306,7 @@
             ctx.globalAlpha = 1.0;
         }
 
-        async function createVideo() {
-            if (photos.length === 0 || isCreating) return;
-
-            isCreating = true;
-            document.querySelector('.btn-primary').disabled = true;
-            document.querySelector('.btn-danger').disabled = true;
-            document.getElementById('downloadBtn').classList.add('hidden');
-            canvas.style.display = 'block';
-
-            showStatus('🎬 동영상 생성 중...', 'processing');
-
-            const frameRate = 30;
-            const stream = canvas.captureStream(frameRate);
-            const recorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
-            
-            const chunks = [];
-            recorder.ondataavailable = (e) => chunks.push(e.data);
-            recorder.onstop = () => {
-                videoBlob = new Blob(chunks, { type: 'video/webm' });
-                showStatus('✅ 동영상 생성 완료!', 'success');
-                document.querySelector('.btn-primary').disabled = false;
-                document.querySelector('.btn-danger').disabled = false;
-                document.getElementById('downloadBtn').classList.remove('hidden');
-                isCreating = false;
-            };
-
-            recorder.start();
-            frameCounter = 0;
-
-            let audioSource = null;
-            if (audioBuffer) {
-                const audioGain = audioContext.createGain();
-                audioGain.gain.value = audioVolumeSlider.value / 100;
-                
-                audioSource = audioContext.createBufferSource();
-                audioSource.buffer = audioBuffer;
-                audioSource.connect(audioGain);
-                audioGain.connect(audioContext.destination);
-                audioSource.start();
-            }
-
-            for (let i = 0; i < photos.length; i++) {
-                const photo = photos[i];
-                const currentDuration = parseFloat(document.getElementById('duration').value);
-                const transitionDuration = parseFloat(document.getElementById('transitionTime').value);
-                
-                await animateTransition(photos[i - 1], photo, transitionDuration);
-                
-                const frameCount = Math.floor(currentDuration * frameRate);
-                for (let j = 0; j < frameCount; j++) {
-                    drawPhotoWithFrame(photo);
-                    await new Promise(resolve => setTimeout(resolve, 1000 / frameRate));
-                    frameCounter++;
-                }
-            }
-            
-            if (audioSource) {
-                audioSource.stop();
-            }
-            
-            recorder.stop();
-        }
-
-        function animateTransition(prevPhoto, currentPhoto, transitionDuration) {
+        async function animateTransition(prevPhoto, currentPhoto, transitionDuration) {
             const frameRate = 30;
             const totalFrames = Math.floor(transitionDuration * frameRate);
             const transitionEffect = document.getElementById('transitionEffect').value;
@@ -1184,19 +1335,31 @@
                         if (transitionEffect === 'slide-left') {
                             offset = canvas.width * (1 - progress);
                             drawPhotoWithFrame(prevPhoto);
-                            ctx.drawImage(currentPhoto.img, offset, 0, canvas.width, canvas.height);
+                            ctx.save();
+                            ctx.translate(offset, 0);
+                            drawPhotoWithFrame(currentPhoto);
+                            ctx.restore();
                         } else if (transitionEffect === 'slide-right') {
                             offset = -canvas.width * (1 - progress);
                             drawPhotoWithFrame(prevPhoto);
-                            ctx.drawImage(currentPhoto.img, offset, 0, canvas.width, canvas.height);
+                            ctx.save();
+                            ctx.translate(offset, 0);
+                            drawPhotoWithFrame(currentPhoto);
+                            ctx.restore();
                         } else if (transitionEffect === 'slide-up') {
                             offset = canvas.height * (1 - progress);
                             drawPhotoWithFrame(prevPhoto);
-                            ctx.drawImage(currentPhoto.img, 0, offset, canvas.width, canvas.height);
+                            ctx.save();
+                            ctx.translate(0, offset);
+                            drawPhotoWithFrame(currentPhoto);
+                            ctx.restore();
                         } else if (transitionEffect === 'slide-down') {
                             offset = -canvas.height * (1 - progress);
                             drawPhotoWithFrame(prevPhoto);
-                            ctx.drawImage(currentPhoto.img, 0, offset, canvas.width, canvas.height);
+                            ctx.save();
+                            ctx.translate(0, offset);
+                            drawPhotoWithFrame(currentPhoto);
+                            ctx.restore();
                         }
                     } else if (transitionEffect.startsWith('zoom')) {
                         const zoomFactor = 1 + (progress * 0.5);
@@ -1208,27 +1371,27 @@
                             const prevZoomFactor = 1 + ((1 - progress) * 0.5);
                             const prevZoomX = (canvas.width / 2) - (canvas.width * prevZoomFactor / 2);
                             const prevZoomY = (canvas.height / 2) - (canvas.height * prevZoomFactor / 2);
-                            ctx.drawImage(prevPhoto.img, prevZoomX, prevZoomY, canvas.width * prevZoomFactor, canvas.height * prevZoomFactor);
-
-                            ctx.globalAlpha = progress;
-                            ctx.drawImage(currentPhoto.img, zoomX, zoomY, canvas.width * zoomFactor, canvas.height * zoomFactor);
-                        } else if (transitionEffect === 'zoom-out') {
-                            ctx.globalAlpha = 1 - progress;
-                            const prevZoomFactor = 1 + (progress * 0.5);
-                            const prevZoomX = (canvas.width / 2) - (canvas.width * prevZoomFactor / 2);
-                            const prevZoomY = (canvas.height / 2) - (canvas.height * prevZoomFactor / 2);
-                            ctx.drawImage(prevPhoto.img, prevZoomX, prevZoomY, canvas.width * prevZoomFactor, canvas.height * prevZoomFactor);
+                            ctx.save();
+                            ctx.scale(prevZoomFactor, prevZoomFactor);
+                            ctx.translate(prevZoomX / prevZoomFactor, prevZoomY / prevZoomFactor);
+                            drawPhotoWithFrame(prevPhoto);
+                            ctx.restore();
 
                             ctx.globalAlpha = progress;
                             const currentZoomFactor = 1 + ((1 - progress) * 0.5);
                             const currentZoomX = (canvas.width / 2) - (canvas.width * currentZoomFactor / 2);
                             const currentZoomY = (canvas.height / 2) - (canvas.height * currentZoomFactor / 2);
-                            ctx.drawImage(currentPhoto.img, currentZoomX, currentZoomY, canvas.width * currentZoomFactor, canvas.height * currentZoomFactor);
+                            ctx.save();
+                            ctx.scale(currentZoomFactor, currentZoomFactor);
+                            ctx.translate(currentZoomX / currentZoomFactor, currentZoomY / currentZoomFactor);
+                            drawPhotoWithFrame(currentPhoto);
+                            ctx.restore();
                         }
                         ctx.globalAlpha = 1.0;
                     }
                     
                     frame++;
+                    frameCounter++;
                     if (frame <= totalFrames) {
                         requestAnimationFrame(animate);
                     } else {
@@ -1238,6 +1401,120 @@
                 };
                 requestAnimationFrame(animate);
             });
+        }
+
+        // === 비디오 생성 (제미나이 오디오 믹싱 기술 적용) ===
+        async function createVideo() {
+            if (photos.length === 0 || isCreating) return;
+
+            isCreating = true;
+            document.querySelector('.btn-primary').disabled = true;
+            document.querySelector('.btn-danger').disabled = true;
+            document.getElementById('downloadBtn').classList.add('hidden');
+            canvas.style.display = 'block';
+
+            showStatus('🎬 동영상 생성 중...', 'processing');
+
+            const frameRate = 30;
+            const canvasStream = canvas.captureStream(frameRate);
+            let finalStream = canvasStream;
+            let audioSource = null;
+            let recorder;
+
+            // === 제미나이 오디오 믹싱 기술 적용 ===
+            if (audioBuffer) {
+                try {
+                    if (!audioContext) {
+                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    // 오디오 컨텍스트가 suspended 상태라면 resume
+                    if (audioContext.state === 'suspended') {
+                        await audioContext.resume();
+                    }
+                    
+                    const audioDestination = audioContext.createMediaStreamDestination();
+                    const audioGain = audioContext.createGain();
+                    audioGain.gain.value = audioVolumeSlider.value / 100;
+                    
+                    audioSource = audioContext.createBufferSource();
+                    audioSource.buffer = audioBuffer;
+                    audioSource.connect(audioGain);
+                    audioGain.connect(audioDestination);
+                    
+                    // 비디오와 오디오 스트림 결합
+                    const combinedStream = new MediaStream([
+                        ...canvasStream.getVideoTracks(),
+                        ...audioDestination.stream.getAudioTracks()
+                    ]);
+                    
+                    finalStream = combinedStream;
+                    
+                    console.log('오디오 믹싱 설정 완료');
+                } catch (error) {
+                    console.error('오디오 믹싱 실패:', error);
+                    showStatus('⚠️ 오디오 믹싱 실패, 음성 없는 비디오로 생성합니다', 'processing');
+                }
+            }
+
+            // MediaRecorder 설정 (WebM 고정)
+            let mimeType = 'video/webm; codecs=vp9,opus';
+            if (!MediaRecorder.isTypeSupported(mimeType)) {
+                mimeType = 'video/webm';
+            }
+
+            recorder = new MediaRecorder(finalStream, { mimeType: mimeType });
+            
+            const chunks = [];
+            recorder.ondataavailable = (e) => chunks.push(e.data);
+            recorder.onstop = () => {
+                if (audioSource) {
+                    try {
+                        audioSource.stop();
+                        audioSource.disconnect();
+                    } catch (e) {
+                        console.log('오디오 정리 완료');
+                    }
+                }
+                
+                videoBlob = new Blob(chunks, { type: mimeType });
+                showStatus('✅ WebM 동영상 생성 완료!', 'success');
+                document.querySelector('.btn-primary').disabled = false;
+                document.querySelector('.btn-danger').disabled = false;
+                document.getElementById('downloadBtn').classList.remove('hidden');
+                
+                isCreating = false;
+            };
+
+            recorder.start();
+            frameCounter = 0;
+
+            // 오디오 재생 시작
+            if (audioSource) {
+                try {
+                    audioSource.start(audioContext.currentTime + 0.1);
+                } catch (error) {
+                    console.error('오디오 재생 실패:', error);
+                }
+            }
+
+            // 비디오 프레임 생성
+            for (let i = 0; i < photos.length; i++) {
+                const photo = photos[i];
+                const currentDuration = parseFloat(document.getElementById('duration').value);
+                const transitionDuration = parseFloat(document.getElementById('transitionTime').value);
+                
+                await animateTransition(photos[i - 1], photo, transitionDuration);
+                
+                const frameCount = Math.floor(currentDuration * frameRate);
+                for (let j = 0; j < frameCount; j++) {
+                    drawPhotoWithFrame(photo);
+                    await new Promise(resolve => setTimeout(resolve, 1000 / frameRate));
+                    frameCounter++;
+                }
+            }
+            
+            recorder.stop();
         }
 
         function downloadVideo() {
@@ -1251,10 +1528,14 @@
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
                 console.log('동영상 다운로드 시작:', a.download);
             }
         }
+
+        // === 초기화 ===
+        displayPhotos();
     </script>
 </body>
 </html>
-
+                            
